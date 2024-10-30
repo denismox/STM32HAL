@@ -53,4 +53,45 @@
    /* USER CODE END WHILE */
    }
    ```
+
+#### РАбота в режиме прерывания
+
+Чтобы программа не тормозилась в ожидании результата, можно воспользоваться прерыванием по окончании преобразования
+
+1. Активация глобальных прерываний
+   ![image](https://github.com/user-attachments/assets/f9f7956c-364d-491d-8256-5972f8b76cb1)
+
+2. Добавление коллбека
+   ```
+    /* USER CODE BEGIN 0 */
+    void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef* hadc)
+    {
+       if(hadc->Instance == ADC1) //check if the interrupt comes from ACD1
+       {
+           adc = HAL_ADC_GetValue(&hadc1);
+       }
+    }
+    /* USER CODE END 0 */
+   ```
+
+3. Включить прерывания
+   ```
+    /* USER CODE BEGIN 2 */
+    HAL_ADCEx_Calibration_Start(&hadc1);
+    HAL_ADC_Start_IT(&hadc1);
+    /* USER CODE END 2 */
+   ```
    
+4. Добавить включение прерывания в основной код или какую-нибудь функцию
+   ```
+    while (1)
+         {
+           snprintf(trans_str, 63, "ADC %d\n", (uint16_t)adc);
+           HAL_UART_Transmit(&huart1, (uint8_t*)trans_str, strlen(trans_str), 1000);
+           adc = 0;
+           HAL_ADC_Start_IT(&hadc1);
+           HAL_Delay(500);
+           ...
+   ```
+   Если включить в настройках **Continious Conversion Mode** то не нужно каждый раз включать прерывания `//HAL_ADC_Start_IT(&hadc1);`
+
