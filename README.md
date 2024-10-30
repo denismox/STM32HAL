@@ -54,7 +54,7 @@
    }
    ```
 
-#### РАбота в режиме прерывания
+#### Работа в режиме прерывания
 
 Чтобы программа не тормозилась в ожидании результата, можно воспользоваться прерыванием по окончании преобразования
 
@@ -94,4 +94,52 @@
            ...
    ```
    Если включить в настройках **Continious Conversion Mode** то не нужно каждый раз включать прерывания `//HAL_ADC_Start_IT(&hadc1);`
+   При этом необходимо увеличить **Sampling time** (например до 13.5) чтобы опрос не происходил слишком быстро и программа не висела всегда в прерывании
+   
+#### Опрос при помощи DMA
+
+1. Настраиваем DMA
+![image](https://github.com/user-attachments/assets/0ec4a253-6e56-44e5-976f-425a24a4000c)
+
+2. Добавить глобальное прерывание по DMA
+![image](https://github.com/user-attachments/assets/260c5620-3e48-48d2-a3d6-9ef8f7f7e683)
+
+3. Добавляем глобальную переменную-флаг
+   ```volatile uint8_t flag = 0;```
+   
+4. В коллбэке поднимаем флаг (Коллбек такой же как и для IT режима)
+   ```
+    /* USER CODE BEGIN 0 */
+    void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef* hadc)
+    {
+       if(hadc->Instance == ADC1)
+       {
+           flag = 1;
+       }
+    }
+    /* USER CODE END 0 */
+   ```
+5. В бесконечном цикле или в какой-либо функции обнуляем флаг
+   ```
+    while(1)
+      {
+        if(flag)
+        {
+        flag = 0;
+
+        HAL_ADC_Stop_DMA(&hadc1); // это необязательно
+        adc[0] = 0;
+        adc[1] = 0;
+        HAL_ADC_Start_DMA(&hadc1, (uint32_t*)&adc, 2);
+        }
+      }
+   ```
+   
+6. Запускаем АЦП:
+   ```
+    /* USER CODE BEGIN 2 */
+    HAL_ADCEx_Calibration_Start(&hadc1);
+    HAL_ADC_Start_DMA(&hadc1, (uint32_t*)&adc, 2); // стартуем АЦП
+    /* USER CODE END 2 */
+   ```
 
