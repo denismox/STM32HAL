@@ -1861,5 +1861,144 @@ _fgets_ записывает n-1 символов, а последний - '\0'
 
 Не путать с sizeof. sizeof возвращает размер объекта.
 
+#### strcpy - копирование строк
+
+__strcpy__ копирует строки
+
+```
+char *strcpy(char *dest, const char *src);
+char *strncpy(char *dest, const char *src, size_t n);
+```
+
+- __src__ - откуда
+- __dest__ - куда
+- __n__ - не более n символов (\0 может не ставить если n < длины)
+
+Функции `strcpy` и `strncpy` возвращают указатель на результирующую строку `dest`
+
+![image](https://github.com/user-attachments/assets/f2fc88f3-6d11-4539-8b6a-90dccbac53dc)
+
+```
+char a[100];
+strcpy(a, "hello");
+printf("%s\n", a);        //hello
+strncpy(a, "abc", 2);
+printf("%s\n", a);        //abllo
+strncpy(a, "abc", 10);    //abc, остальные 6 элементов массива заполняются нулями
+printf("%s\n", a);        //abc
+```
+
+Нельзя копировать перекрывающиеся участки памяти. 
+
+Для копирования перекрывающихся участков памяти нужно использовать `memmove`
+
+`void *memmove(void *dest, const void *src, size_t n);`
+
+`memmove(d, d+2, strlen(d+2) + 1)        // +1 для того чтобы копировать символ \0`
+
+#### strcat - склеивание строк
+
+__strcat__ - конкатенация (сложение) строк
+
+```
+char *strcat(char *dest, const char *src);
+char *strncat(char *dest, const char *src, size_t n);
+```
+
+Функция strcat добавляет строку str к строке dest, перезаписывая символ '\0' в конце dest и добавляя к строке символ окончания '\0'. Строки не должны перекрываться
+
+strncat() работает аналогично, но добавляет только первые n символов и дописывает в конец '\0'
+
+strcat и strncat возвращают указатель на строку получившуюся в результате объединения dest
+
+```
+#include <stdio.h>
+#include <string.h>
+
+
+int main() {
+    char a[100];           // нужно место куда копировать
+    char * b;              // сюда будем записывать что вернули функции
+
+
+    strcpy(a, "abc");
+    printf("%s\n", a);     // abc
+    b = strcat(a, "world");
+    printf("%s\n", a);     // abcworld
+    printf("%s\n", b);     // abcworld
+
+
+    strcpy(a, "abc");
+    strcat(a, "hello");
+    printf("%s\n", a);    // abchello
+    strncat(a, "xyz", 2); // \0 дописывает
+    printf("%s\n", a);    // abchelloxy
+    b = strncat(a, "END", 10);
+    printf("%s\n", a);    // abchelloxyEND
+    printf("%s\n", b);    // abchelloxyEND
+
+
+    return 0;
+}
+```
+
+#### strchr, strrchr - поиск символа в строке
+
+```
+char *strchr(const char *s, int c);
+char *strrchr(const char *s, int c);
+```
+
+Функция `strchr` возвращает указатель на первое вхождение символа __c__ в строке __s__. `strrchr` возвращает указатель на последнее вхождение символа __с__ в строке __s__ (поиск идет справа налево). Возвращают __NULL__ если символа в строке не найдено.
+
+```
+char * a = "Hello, world!";
+char * p1 = strchr (a, 'l');
+char * p2 = strrchr (a, 'l');
+printf("%s\n", p1);         // llo, world!
+printf("%s\n", p2);         // ld!
+```
+
+#### strstr поиск подстроки в строке
+
+`char *strstr(const char *str, const char *substr);`
+
+Функция strstr() ищет первое вхождение подстроки substr в строке str. Завершающий символ '\0' не сравнивается
+
+Возвращает указатель на начало подстроки, или NULL, если подстрока не найдена.
+
+```
+char * text = "I have a dog. I have a bomb. I have a cat";
+if (NULL != strstr(text, "bomb"))
+    printf("WAAA! BOMB!!!!\n");
+```
+
+#### strtok - разбор строки по токенам (словам)
+
+Вызыается несколько раз и разбивает строку __s__ по токенам. Токен - это последовательность символов не разделителей.
+
+- разбивает строку на подстроки по разделителю из алфавита delim;
+- модифицирует строку s, записывая \0 в места, где находятся разделители из delim;
+- возвращает указатель на очередную подстроку после каждой модификации;
+- для каждого последующего вызова, кроме первого, указываем NULL вместо s;
+- последний раз (нет больше delim) вернет NULL.
+
+```
+char s[] = "a,bb; cccc?dd";         // текст
+const char * delim = ",;?!. \t";    // алфавит разделителей
+for (char * p = strtok(s, delim);   // начинаем разбор, передаем строку s
+        p != NULL;                  // пока не нашли новый разделитель
+        p = strtok (NULL, delim) )  // в следующий раз вызываем от NULL
+    printf("%s\n", p);              // вместо разделителя \0, поэтому можно напечатать токен от p до \0
+```
+
+Получим:
+
+```
+a
+bb
+cccc
+dd
+```
 
 
