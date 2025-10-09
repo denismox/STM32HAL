@@ -197,3 +197,25 @@ for(size_t i = 0; i != data.size; ++i){
     std::cout << data[i] << " ";
 }
 ```
+
+#### Добавление и удаление элементов
+
+Для добавления и удаления элементов в конец вектора можно использовать функции `push_back` и `pop_back` соответственно. 
+
+```
+#include <iostream>
+#include <vector>
+
+int main(){
+    int x;
+    std::vector<int> data;
+    while(std::cin >> x){
+        data.push_back(x);        //Вставляет элемент в конец вектора data
+    }
+    while(!data.empty() && data.back() == 0){
+        data.pop_back();          //Удаляем последний элемент пока вектор не пуст и последний элемент нулевой
+    }
+    return 0;
+}
+```
+
