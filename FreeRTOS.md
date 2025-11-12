@@ -1,4 +1,4 @@
-<img width="496" height="303" alt="image" src="https://github.com/user-attachments/assets/41451740-844d-447f-a136-4d5c36d0e391" /><img width="253" height="32" alt="image" src="https://github.com/user-attachments/assets/ce4b1d68-f89e-484c-8390-3bb5ba9e9bfd" /># Справочник по FreeRTOS
+# Справочник по FreeRTOS
 
 ## Содержание
 
