@@ -208,8 +208,35 @@ heap_1.c, heap_2.c, heap_3.c, heap_4.c, heap_5.c
 
 Самый оптимальный выбор для STM32f4 для обычных проектов - `heap_4.c`.
 
+### Hook function related definitions
 
-###
+Раздел специальных пользовательских коллбеков которые FreeRTOS вызывает автоматически.
+
+#### USE_IDLE_HOOK
+
+`USE_IDLE_HOOK` - если `1 (enable)` то разрешает вызывать функцию `vApplicationIdleHook()` каждый раз когда система простаивает (выполняется idle task)
+
+#### USE_TICK_HOOK
+
+`USE_TICK_HOOK` - если `1 (enable)` то вызывает функцию `vApplicationTickHook()` на каждом системном тике FreeRTOS.
+
+#### USE_MALLOC_FAILED_HOOK
+
+`USE_MALLOC_FAILED_HOOK` - если `1 (enable)` то если ядро не смогло выделить память, вызывается функция `vApplicationMallocFailedHook(void)`
+
+Полезно при отладке, позволяет увидеть что память закончилась
+
+#### USE_DAEMON_TASK_STARTUP_HOOK
+
+`USE_DAEMON_TASK_STARTUP_HOOK` - если `1 (enable)` то вызывает `vApplicationDaemonTaskStartupHook()` один раз когда стратует служебная __Timer Service Task__ (если используются `xTimerCreate` и таймеры)
+
+#### CHECK_FOR_STACK_OVERFLOW
+
+`CHECK_FOR_STACK_OVERFLOW` - включает механизм проверки переполнения стека задачи, вызывает `vApplicationStackOverflowHook(TaskHandle_t xTask, char *pcTaskName);` в случае переполнения. Если `1 (Option1)` то включается простая проверка при переключении задач, если `2 (Option2) - более глубокая проверка (большие временные затраты).
+
+### Run Time and Task Stats Gathering Related Definitions
+
+####
 
 | Параметр | Принимаемые значение | описание |
 | ------------- | ------------- | ------------- |
@@ -235,7 +262,13 @@ heap_1.c, heap_2.c, heap_3.c, heap_4.c, heap_5.c
 | `Memory Allocation`  | Выбор способа выделения памяти  | dynamic, static, dynamic/static|
 | `TOTAL_HEAP_SIZE`  | Размер кучи для FreeRTOS | от 512 байт до 128 кБайт |
 | `Memory Management Scheme`  | Выбор режима для работы с кучей | heap_1.c - heap_5.c |
-| ``  | Content Cell  | Content Cell |
-| ``  | Content Cell  | Content Cell |
-| ``  | Content Cell  | Content Cell |
-| ``  | Content Cell  | Content Cell |
+| | Content Cell  | |
+| ``  | Hook function related definitions  | |
+| `USE_IDLE_HOOK`  | Вызывает ``vApplicationIdleHook()` каждый раз когда система простаивает | `1 (enabled)` - включено `0 (disabled)` - выключено |
+| `USE_TICK_HOOK`  | Вызыввает `vApplicationTickHook()` на каждом тике системы FreeRTOS  | `1 (enabled)` - включено `0 (disabled)` - выключено |
+| `USE_MALLOC_FAILED_HOOK` | Вызывает `vApplicationMallocFailedHook(void)` если ядро не смогло выделить память | `1 (enabled)` - включено `0 (disabled)` - выключено |
+| `USE_DAEMON_TASK_STARTUP_HOOK` | вызывает `vApplicationDaemonTaskStartupHook()` один раз когда стратует служебная __Timer Service Task__ | `1 (enabled)` - включено `0 (disabled)` - выключено |
+| `CHECK_FOR_STACK_OVERFLOW` | Включает механизм проверки переполнения стека (vApplicationStackOverflowHook(TaskHandle_t xTask, char *pcTaskName)| `1 (Option1)` - быстрый режим `2 (Option2)` - глубокий режим `0 (disable) - выключено` |
+| | Run Time and Task Stats Gathering Related Definitions | |
+| `` | Content Cell  | |
+| `` | Content Cell  | |
