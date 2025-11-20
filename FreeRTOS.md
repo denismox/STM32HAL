@@ -236,11 +236,17 @@ heap_1.c, heap_2.c, heap_3.c, heap_4.c, heap_5.c
 
 ### Run Time and Task Stats Gathering Related Definitions
 
-####
+Этот раздел связан с мониторингом производительности и загрузки задач. FreeRTOS может собирать статистику, сколько времени каждая задача была активной, а также генерировать текстовые таблицы для отладки.
+
+#### GENERATE_RUN_TIME_STATS
+
+`GENERATE_RUN_TIME_STATS` - если `1 (enable)` то включает сбор статистики выполнения задач. Для этого необходимо предоставить счётчик времени (например, аппаратный таймер MCU).
+
+``
 
 | Параметр | Принимаемые значение | описание |
 | ------------- | ------------- | ------------- |
-| | Kernel settings | |
+| | __Kernel settings__ | |
 | `USE_PREEMTION`  | Вытесняющая многозадачность или корпоративная многозадачность | `1 (enabled)` - вытесняющая многозадачность `0 (disabled)` - кооперативная многозадачность|
 | `USE_TIME_SLICING`  | Разделение задач одинакового приоритета по времени | `1 (enabled)` - включено `0 (disabled)` - выключено |
 | `CPU_CLOCK_HZ`  | Частота системного тика  | Число в герцах |
@@ -258,17 +264,16 @@ heap_1.c, heap_2.c, heap_3.c, heap_4.c, heap_5.c
 | `USE_TICKLESS_IDLE`  | Отключение SysTick когда все задачи спят  | `1 (enabled)` - включено `0 (disabled)` - выключено |
 | `USE_TASK_NOTIFICATIONS`  | Включает возможность использования TaskNotify | `1 (enabled)` - включено `0 (disabled)` - выключено |
 | `RECORD_STACK_HIGH_ADDRESS`  | Включает возможность сохранять верхний адрес стека каждой задачи  | `1 (enabled)` - включено `0 (disabled)` - выключено |
-| | Memory management system | |
+| | __Memory management system__ | |
 | `Memory Allocation`  | Выбор способа выделения памяти  | dynamic, static, dynamic/static|
 | `TOTAL_HEAP_SIZE`  | Размер кучи для FreeRTOS | от 512 байт до 128 кБайт |
 | `Memory Management Scheme`  | Выбор режима для работы с кучей | heap_1.c - heap_5.c |
-| | Content Cell  | |
-| ``  | Hook function related definitions  | |
+| | __Hook function related definitions__ | |
 | `USE_IDLE_HOOK`  | Вызывает ``vApplicationIdleHook()` каждый раз когда система простаивает | `1 (enabled)` - включено `0 (disabled)` - выключено |
 | `USE_TICK_HOOK`  | Вызыввает `vApplicationTickHook()` на каждом тике системы FreeRTOS  | `1 (enabled)` - включено `0 (disabled)` - выключено |
 | `USE_MALLOC_FAILED_HOOK` | Вызывает `vApplicationMallocFailedHook(void)` если ядро не смогло выделить память | `1 (enabled)` - включено `0 (disabled)` - выключено |
 | `USE_DAEMON_TASK_STARTUP_HOOK` | вызывает `vApplicationDaemonTaskStartupHook()` один раз когда стратует служебная __Timer Service Task__ | `1 (enabled)` - включено `0 (disabled)` - выключено |
 | `CHECK_FOR_STACK_OVERFLOW` | Включает механизм проверки переполнения стека (vApplicationStackOverflowHook(TaskHandle_t xTask, char *pcTaskName)| `1 (Option1)` - быстрый режим `2 (Option2)` - глубокий режим `0 (disable) - выключено` |
-| | Run Time and Task Stats Gathering Related Definitions | |
+| | __Run Time and Task Stats Gathering Related Definitions__ | |
 | `` | Content Cell  | |
 | `` | Content Cell  | |
