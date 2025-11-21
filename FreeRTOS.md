@@ -298,13 +298,15 @@ Idle      R      0     120    2
 
 ### Interrupt nesting behaviour configuration
 
+Настройка которая регулирует работу FreeRTOS и прерываний NVIC контроллера. При работе ОС при приходе прерывания ОС может преключать задачу и прерывание способно загнать программу на этом моменте в HardFault. Поэтому необходимо отключать прерывания в момент смены задачи. 
+
 #### LIBRARY_LOWEST_INTERRUPT_PRIORITY
 
-`LIBRARY_LOWEST_INTERRUPT_PRIORITY`
+`LIBRARY_LOWEST_INTERRUPT_PRIORITY` - прараметр который показывает системе наименьший приоритет прерывания. По сути дно прерывания. Для STM32F4 - 15.
 
 #### LIBRARY_MAX_SYSCALL_INTERRUPT_PRIORITY
 
-`LIBRARY_MAX_SYSCALL_INTERRUPT_PRIORITY`
+`LIBRARY_MAX_SYSCALL_INTERRUPT_PRIORITY` - параметр который показывает до какого уровня необходимо отключать прерывания при переключении задач FreeRTOS. Например при значении `LIBRARY_MAX_SYSCALL_INTERRUPT_PRIORITY = 5` FreeRTOS отключит все прерывания с приоритетом от `LIBRARY_LOWEST_INTERRUPT_PRIORITY` до `LIBRARY_MAX_SYSCALL_INTERRUPT_PRIORITY` (те от 15 до 5), при этом прерывания с приоритетом от 0 до 4 будут продолжать работать. __Этим прерываниям трого запрещено вызывать любые функции FreeRTOS API!!!__
 
 ### Added with 10.2.1 support
 
