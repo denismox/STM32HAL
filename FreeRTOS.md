@@ -242,7 +242,55 @@ heap_1.c, heap_2.c, heap_3.c, heap_4.c, heap_5.c
 
 `GENERATE_RUN_TIME_STATS` - если `1 (enable)` то включает сбор статистики выполнения задач. Для этого необходимо предоставить счётчик времени (например, аппаратный таймер MCU).
 
-``
+#### USE_TRACE_FACILITY
+
+`USE_TRACE_FACILITY` - если `1 (enable)` позволяет использовать функции трейсинга и диагностики
+
+```
+vTaskList()
+vTaskGetInfo()
+```
+
+Эти функции выдают задачи их приоритет, состояние и свободный стек
+
+```
+Name      State  Prio  Stack  Num
+--------------------------------
+Task1     R      2     200    1
+Idle      R      0     120    2
+```
+
+#### USE_STATS_FORMATTING_FUNCTIONS
+
+`USE_STATS_FORMATTING_FUNCTIONS` - если `1 (enable)` то будет превращать результаты функций `vTaskList(), vTaskGetRunTimeStats()` в человекочитаемые таблицы. Занимает много флэш памяти
+
+### Co-Routine related definition
+
+Позволяет использовать функцию co-routine (легковесные псевдозадачи). Используется только для контроллеров с маленьким объемом RAM
+
+#### USE_CO_ROUTINES
+
+`USE_CO_ROUTINES` - включает или выключает поддержку co-routin.
+
+#### MAX_CO_ROUTINE_PRIORITIES
+
+`MAX_CO_ROUTINE_PRIORITIES` - задает число приоритетов для co-routin. Число от 1 до 255.
+
+### Software timer definitions
+
+Раздел который отвечает за программные таймеры. Позволяет выполнять функции по таймеру без создания отдельной задачи.
+
+#### USE_TIMERS
+
+`USE_TIMERS` - если `1 (enable)` то включает поддержку программных таймеров
+
+#### TIMER_TASK_PRIORITY
+
+`TIMER_TASK_PRIORITY` - приоритет задачи которая обслуживает все программные таймеры. Чем точнее нужен таймер тем выше должно быть это число. Обычно ставят на 2 пункта ниже чем максимальный приорит задач. от 0 до 55
+
+#### TIMER_QUEUE_LENGTH
+
+`TIMER_QUEUE_LENGTH` - задает размер очереди для команд таймера. Чем больше таймеров или чем чаще они срабатывают тем больше должно быть данное число. Обычно достаточно 10. от 1 до 255. 
 
 | Параметр | Принимаемые значение | описание |
 | ------------- | ------------- | ------------- |
@@ -275,5 +323,14 @@ heap_1.c, heap_2.c, heap_3.c, heap_4.c, heap_5.c
 | `USE_DAEMON_TASK_STARTUP_HOOK` | вызывает `vApplicationDaemonTaskStartupHook()` один раз когда стратует служебная __Timer Service Task__ | `1 (enabled)` - включено `0 (disabled)` - выключено |
 | `CHECK_FOR_STACK_OVERFLOW` | Включает механизм проверки переполнения стека (vApplicationStackOverflowHook(TaskHandle_t xTask, char *pcTaskName)| `1 (Option1)` - быстрый режим `2 (Option2)` - глубокий режим `0 (disable) - выключено` |
 | | __Run Time and Task Stats Gathering Related Definitions__ | |
+| `GENERATE_RUN_TIME_STATS` | включает сбор статистики для задач | `1 (enabled)` - включено `0 (disabled)` - выключено |
+| `USE_TRACE_FACILITY` | позволяет использовать функции трейсинга и диагностики | `1 (enabled)` - включено `0 (disabled)` - выключено |
+| `USE_STATS_FORMATTING_FUNCTIONS` | Превращает вывод функций диагностики в читаемую строку для вывода | `1 (enabled)` - включено `0 (disabled)` - выключено  |
+| | __co-routin related definition__  | |
+| `USE_CO_ROUTINES` | Включает или выключает co-routin| `1 (enabled)` - включено `0 (disabled)` - выключено |
+| `MAX_CO_ROUTINE_PRIORITIES` | Задает количество приоритет для задач co-routin | от `1` до `255` |
+| `` | Content Cell  | |
+| `` | Content Cell  | |
+| `` | Content Cell  | |
 | `` | Content Cell  | |
 | `` | Content Cell  | |
