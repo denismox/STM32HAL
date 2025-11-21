@@ -306,13 +306,23 @@ Idle      R      0     120    2
 
 #### LIBRARY_MAX_SYSCALL_INTERRUPT_PRIORITY
 
-`LIBRARY_MAX_SYSCALL_INTERRUPT_PRIORITY` - параметр который показывает до какого уровня необходимо отключать прерывания при переключении задач FreeRTOS. Например при значении `LIBRARY_MAX_SYSCALL_INTERRUPT_PRIORITY = 5` FreeRTOS отключит все прерывания с приоритетом от `LIBRARY_LOWEST_INTERRUPT_PRIORITY` до `LIBRARY_MAX_SYSCALL_INTERRUPT_PRIORITY` (те от 15 до 5), при этом прерывания с приоритетом от 0 до 4 будут продолжать работать. __Этим прерываниям трого запрещено вызывать любые функции FreeRTOS API!!!__
+`LIBRARY_MAX_SYSCALL_INTERRUPT_PRIORITY` - параметр который показывает до какого уровня необходимо отключать прерывания при переключении задач FreeRTOS. 
+
+Например при значении `LIBRARY_MAX_SYSCALL_INTERRUPT_PRIORITY = 5` FreeRTOS отключит все прерывания с приоритетом от `LIBRARY_LOWEST_INTERRUPT_PRIORITY` до `LIBRARY_MAX_SYSCALL_INTERRUPT_PRIORITY` (те от 15 до 5), при этом прерывания с приоритетом от 0 до 4 будут продолжать работать. __Этим прерываниям трого запрещено вызывать любые функции FreeRTOS API!!!__
 
 ### Added with 10.2.1 support
 
+Параметры добавленные в более свежих версиях FreeRTOS. 
+
 #### MESSAGE_BUFFER_LENGHT_TYPE
 
+`MESSAGE_BUFFER_LENGHT_TYPE` - Тип переменной, который используется для хранения длины сообщения в "Message Buffers". 
+
+Обычно используется `size_t` но при необходимости для экономии памяти можно использовать `uint8_t` или `uint16_t`
+
 #### USE_POSIX_ERRNO
+
+`USE_POSIX_ERRNO` - если `1 (enable)` то включит поддержку переменной `errno` в стиле POSIX
 
 ### CMSIS-RTOS V2 flags
 
@@ -368,6 +378,12 @@ Idle      R      0     120    2
 | `TIMER_TASK_STACK_DEPTH` | Размер стека для задачи обработчика таймеров | от 128 до 32768 слов |
 | `LIBRARY_LOWEST_INTERRUPT_PRIORITY` | Content Cell  | |
 | `LIBRARY_MAX_SYSCALL_INTERRUPT_PRIORITY` | Content Cell  | |
+| | __Interrupt nesting behaviour configuration__ | |
+| `LIBRARY_LOWEST_INTERRUPT_PRIORITY` | Указывает системе наименьший приоритет прерывания контроллера | 15 для STM32F4 |
+| `LIBRARY_MAX_SYSCALL_INTERRUPT_PRIORITY` | Значение, прерывания выше которого, не будут останавливаться FreeRTOS  | от `0` до `15` |
+| | __Added with 10.2.1 support__ | |
+| `MESSAGE_BUFFER_LENGHT_TYPE` | Тип переменной для для хранения сообщения в Massage buffer | по умолчанию `size_t`, можно поставить `uint8_t` или `uint16_t`|
+| `` | Content Cell  | |
 | `` | Content Cell  | |
 | `` | Content Cell  | |
 | `` | Content Cell  | |
