@@ -296,7 +296,29 @@ Idle      R      0     120    2
 
 `TIMER_TASK_STACK_DEPTH` - размер стека задачи обработчика таймеров. 128 - 32768 слов.
 
-###
+### Interrupt nesting behaviour configuration
+
+#### LIBRARY_LOWEST_INTERRUPT_PRIORITY
+
+`LIBRARY_LOWEST_INTERRUPT_PRIORITY`
+
+#### LIBRARY_MAX_SYSCALL_INTERRUPT_PRIORITY
+
+`LIBRARY_MAX_SYSCALL_INTERRUPT_PRIORITY`
+
+### Added with 10.2.1 support
+
+#### MESSAGE_BUFFER_LENGHT_TYPE
+
+#### USE_POSIX_ERRNO
+
+### CMSIS-RTOS V2 flags
+
+####
+
+####
+
+####
 
 ####
 
@@ -342,8 +364,8 @@ Idle      R      0     120    2
 | `TIMER_TASK_PRIORITY` | Приоритет задачи обработчика таймеров | от `1` до `55` |
 | `TIMER_QUEUE_LENGTH` | Размер очереди для команд обработчика таймера | от `1` до `255` |
 | `TIMER_TASK_STACK_DEPTH` | Размер стека для задачи обработчика таймеров | от 128 до 32768 слов |
-| `` | Content Cell  | |
-| `` | Content Cell  | |
+| `LIBRARY_LOWEST_INTERRUPT_PRIORITY` | Content Cell  | |
+| `LIBRARY_MAX_SYSCALL_INTERRUPT_PRIORITY` | Content Cell  | |
 | `` | Content Cell  | |
 | `` | Content Cell  | |
 | `` | Content Cell  | |
