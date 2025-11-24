@@ -401,8 +401,8 @@ Idle      R      0     120    2
 | `TIMER_TASK_PRIORITY` | Приоритет задачи обработчика таймеров | от `1` до `55` |
 | `TIMER_QUEUE_LENGTH` | Размер очереди для команд обработчика таймера | от `1` до `255` |
 | `TIMER_TASK_STACK_DEPTH` | Размер стека для задачи обработчика таймеров | от 128 до 32768 слов |
-| `LIBRARY_LOWEST_INTERRUPT_PRIORITY` | Content Cell  | |
-| `LIBRARY_MAX_SYSCALL_INTERRUPT_PRIORITY` | Content Cell  | |
+| `LIBRARY_LOWEST_INTERRUPT_PRIORITY` | Параметр показывает системе наименьший приоритет | приоритет системы |
+| `LIBRARY_MAX_SYSCALL_INTERRUPT_PRIORITY` | Параметр который показывет верхний приоритет, выше которого прерывания не будут останавливаться | Число от нижнего приориета до определенного приоритета сверху |
 | | __Interrupt nesting behaviour configuration__ | |
 | `LIBRARY_LOWEST_INTERRUPT_PRIORITY` | Указывает системе наименьший приоритет прерывания контроллера | 15 для STM32F4 |
 | `LIBRARY_MAX_SYSCALL_INTERRUPT_PRIORITY` | Значение, прерывания выше которого, не будут останавливаться FreeRTOS  | от `0` до `15` |
