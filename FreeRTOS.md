@@ -326,13 +326,38 @@ Idle      R      0     120    2
 
 ### CMSIS-RTOS V2 flags
 
-####
+Настройки которые определяют какие функции CMSIS-RTOS API будут доступны в проекте. Если какие-либо настройки этого пункта нужно включить, то такую же настройку в самом ядре FreeRTOS также необходимо включить.
 
-####
+#### USE_OS2_THREAD_FLAG
 
-####
+`USE_OS2_THREAD_FLAG` - если `1 (enable)` то включает механизм синхронизации между задачами, аналог Task Notifications 
 
-####
+#### USE_OS2_THREAD_ATTR
+
+`USE_OS2_THREAD_ATTR` - если `1 (enable)` то включает поддержку атрибутов потоков (задач), иначе создает задачу со стандартными параметрами.
+
+Атрибуты позволяют задать:
+- приоритет
+- размер стека
+- имя
+- область размещения стека
+- область ТСВ
+
+#### USE_OS2_EVENTFLAGS
+
+`USE_OS2_EVENTFLAGS` - если `1 (enable)` то включает event flags, аналог event groups
+
+#### USE_OS2_THREAD_JOIN
+
+`USE_OS2_THREAD_JOIN` - если `1 (enable)` то включает возможность “присоединяться к потоку” (join), как в C++ std::thread.
+
+#### USE_OS2_TIMER
+
+`USE_OS2_TIMER` - если `1 (enable)` то включает поддержку программных таймеров
+
+#### USE_OS2_MUTEX
+
+`USE_OS2_MUTEX` - если `1 (enable)` то включает поддержку мьютексов
 
 | Параметр | Принимаемые значение | описание |
 | ------------- | ------------- | ------------- |
@@ -383,10 +408,12 @@ Idle      R      0     120    2
 | `LIBRARY_MAX_SYSCALL_INTERRUPT_PRIORITY` | Значение, прерывания выше которого, не будут останавливаться FreeRTOS  | от `0` до `15` |
 | | __Added with 10.2.1 support__ | |
 | `MESSAGE_BUFFER_LENGHT_TYPE` | Тип переменной для для хранения сообщения в Massage buffer | по умолчанию `size_t`, можно поставить `uint8_t` или `uint16_t`|
-| `` | Content Cell  | |
-| `` | Content Cell  | |
-| `` | Content Cell  | |
-| `` | Content Cell  | |
-| `` | Content Cell  | |
-| `` | Content Cell  | |
-| `` | Content Cell  | |
+| `USE_POSIX_ERRNO` | Включает поддержку переменной типа `errno` | `1 (enabled)` - включено `0 (disabled)` - выключено |
+| | __CMSIS-RTOS V2 flags__ | |
+| `USE_OS2_THREAD_FLAG` | включает механизм синхронизации между задачами | `1 (enabled)` - включено `0 (disabled)` - выключено |
+| `USE_OS2_THREAD_ATTR` | Включает поддержку ручного задания атрибутов потоков | `1 (enabled)` - включено `0 (disabled)` - выключено |
+| `USE_OS2_EVENTFLAGS` | Включает поддержку event flags | `1 (enabled)` - включено `0 (disabled)` - выключено |
+| `USE_OS2_THREAD_JOIN` | включает возможность “присоединяться к потоку” | `1 (enabled)` - включено `0 (disabled)` - выключено |
+| `USE_OS2_TIMER` | Включает поддержку программных таймеров | `1 (enabled)` - включено `0 (disabled)` - выключено |
+| `USE_OS2_MUTEX` | Включает поддержку мьютексов | `1 (enabled)` - включено `0 (disabled)` - выключено |
+
