@@ -360,6 +360,91 @@ Idle      R      0     120    2
 
 `USE_OS2_MUTEX` - если `1 (enable)` то включает поддержку мьютексов
 
+### Include definitions
+
+Данный раздел отвечает за включение нижеописанных функций в проект. При их включении они будут скомпилированы, при выключении немного экономится Flash-память и RAM.
+
+#### vTaskPrioritySet
+
+`vTaskPrioritySet()` - меняет приоритет задачи во время работы программы
+
+#### uxTaskPriorityGet
+
+`uxTaskPriorityGet()` - Возвращает текущий приоритет задачи. Для диагностики или логики.
+
+#### vTaskDelete
+
+`vTaskDelete()` - Удаляет задачу. Задача может удалить другую задачу или саму себя. 
+
+#### vTaskCleanUpResources
+
+`vTaskCleanUpResources()` - Устаревшая функция для старых портов FreeRTOS, освобождает ресурсы после удаления задачи.
+
+#### vTaskSuspend
+
+Добавляет функции `vTaskSuspend()` и `vTaskResume()` - которые полностью останавливают задачу и затем запускают снова. Когда задачу нужно выключить на неопределенное время и включить по событию.
+
+#### vTaskDelayUntill
+
+`vTaskDelayUntill()` - задержка до точного следущего момента времени. Полезна для переодических задач (опрос датчика ровно раз в 10 мс и т.д.). Не накапливает ошибку. Учитывает время от начала задачи а не от ее конца как в функции `vTaskDelay()`. 
+
+#### vTaskDelay
+
+`vTaskDelay()` - задержка на указанное число тиков начиная с текущего момента. 
+
+#### vTaskGetSchedulerState
+
+`vTaskGetSchedulerState()` - Показывает текущее состояние планировщика: запущен ли, приостановлен или еще не стартовал. Применяется если общий код может вызваться и до и после `osKernelStart()`.
+
+#### vTaskResumeFromISR
+
+`vTaskResumeFromISR()` - Возобновляет приостановленную задачу из обработчика прерывания. 
+
+#### vQueueGetMutexHolder
+
+`vQueueGetMutexHolder()` - Возвращает задачу которая сейчас владеет mutex. Для отладки зависаний и конфликтов доступа к общему ресурсу.
+
+#### vSemaphoreGetMutexHolder
+
+`vSemaphoreGetMutexHolder()` - То же что и `vQueueGetMutexHolder()` только через API семафоров. Достаточно одного из двух вариантов.
+
+#### pcTaskGetTaskName
+
+`pcTaskGetTaskName()` - Возвращает строковое имя задачи. Для логов, отладки, вывода в терминал.
+
+#### uxTaskGetStackHighWaterMark
+
+`uxTaskGetStackHighWaterMark()` - Показывает сколько минимально оставалось стека у задачи свободным за все время ее работы. Полезно при настройке стека и поиске риска переполнения.
+
+#### xTaskGetCurrentTaskHandle
+
+`xTaskGetCurrentTaskHandle()` - Возвращает handle выполняющейся сейчас задачи.
+
+#### eTaskGetState
+
+`eTaskGetState()` - возвращает состояние задачи: running, ready, blocked, suspended или deleted. Для диагностики.
+
+#### xEventGroupSetBitsFromISR
+
+`xEventGroupSetBitsFromISR()` - устанавливает биты event group из прерывания.
+
+#### xTimerPendFunctionCall 
+
+`xTimerPendFunctionCall()` - просит задачу таймеров выполнить выполнить указанную функцию в ее контексте.
+
+#### xTaskAbortDelay
+
+`xTaskAbortDelay()` - Досрочно выводит задачу из состояния ожиданния/задержки. Когда нужно прервать `vTaskDelay()`, ожидание очереди, семафора или уведомления.
+
+#### xTaskGetHandle
+
+`xTaskGetHandle()` - ищет handle задачи по ее имени
+
+#### uxTaskGetStackHighWaterMark2
+
+Версия `uxTaskGetStackHighWaterMark()` с более широким типом результата. Подходит если стек может быть большим.
+
+
 | Параметр | Принимаемые значение | описание |
 | ------------- | ------------- | ------------- |
 | | __Kernel settings__ | |
@@ -416,5 +501,7 @@ Idle      R      0     120    2
 | `USE_OS2_EVENTFLAGS` | Включает поддержку event flags | `1 (enabled)` - включено `0 (disabled)` - выключено |
 | `USE_OS2_THREAD_JOIN` | включает возможность “присоединяться к потоку” | `1 (enabled)` - включено `0 (disabled)` - выключено |
 | `USE_OS2_TIMER` | Включает поддержку программных таймеров | `1 (enabled)` - включено `0 (disabled)` - выключено |
+| `USE_OS2_MUTEX` | Включает поддержку мьютексов | `1 (enabled)` - включено `0 (disabled)` - выключено |
+| | __Include parameters__ | |
 | `USE_OS2_MUTEX` | Включает поддержку мьютексов | `1 (enabled)` - включено `0 (disabled)` - выключено |
 
