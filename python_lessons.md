@@ -41,6 +41,27 @@ World
 
 <img width="719" height="317" alt="image" src="https://github.com/user-attachments/assets/e9d81485-86cd-4ebd-a9a4-d55c84cee0c5" />
 
+## Условные операторы
+
+### Операторы if else
+
+Опреаторы `if` и `else` работают также как и в СИ. Код который должен выполниться после оператора выделяется отступом в 4 пробела (1 таб).
+
+```
+answer = input('Какой язык программирования мы изучаем?')
+
+if answer == 'Python':
+    print('Верно! Мы ботаем Python =)')
+    print('Python - отличный язык!')
+else:
+    print('Не совсем так!')
+```
+
+#### Операторы сравнения:
+
+<img width="352" height="301" alt="image" src="https://github.com/user-attachments/assets/a8a83277-2437-4ce2-8b78-67d3f1a29689" />
+
+
 
 
 
