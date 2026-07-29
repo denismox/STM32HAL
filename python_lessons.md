@@ -37,5 +37,10 @@ World
 
 `name = input('Как тебя зовут?')` - Сперва выведен на экран текст, затем попросит ввести данные с клавиатуры, а затем присвоит их переменной `name`
 
+## Математические оперции
+
+<img width="719" height="317" alt="image" src="https://github.com/user-attachments/assets/e9d81485-86cd-4ebd-a9a4-d55c84cee0c5" />
+
+
 
 
