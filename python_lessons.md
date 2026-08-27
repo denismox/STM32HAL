@@ -307,6 +307,16 @@ import math as m           #импорт всех функций, обознач
 
 <img width="801" height="1009" alt="image" src="https://github.com/user-attachments/assets/4cf2e0f1-fa0d-46c5-bd9e-e8d33e48374b" />
 
+### Циклы
 
+#### Цикл for
 
+Цикл for аналогичен как в языке СИ
+
+<img width="3909" height="834" alt="image" src="https://github.com/user-attachments/assets/445197a6-76a7-4836-9c63-f5560a7329c1" />
+
+Переменная в цикле при неуказании границ начинается с 0 и увеличивается на 1 после каждой итерации, при этом правая граница не включается,
+например `for i in range(10):` аналогичен `for(int i = 0; i < 10; i++){}`
+
+При этом если в `range` подается один аргумент - то это будет правая граница. Если два аргумента то это две границы `range(start, stop)`, при трех аргументах - будет еще и шаг `range(start, stop, step)`
 
