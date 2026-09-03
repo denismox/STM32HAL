@@ -43,6 +43,9 @@ World
 
 <img width="317" height="99" alt="image" src="https://github.com/user-attachments/assets/9e63a31a-90d2-4782-84ea-cee33b715ab6" />
 
+Также как и в СИ действие с той же переменной к которой присваиваем можно делеть через расширенные операторы присваивания
+
+<img width="707" height="309" alt="image" src="https://github.com/user-attachments/assets/e5b82bdf-d01e-41bd-935b-3d64c98f4b61" />
 
 Этот код:
 
@@ -63,6 +66,29 @@ print(2 ** (-1))
 8
 0.5
 ```
+
+В python можно также можно менять значения переменных без доп переменных, например:
+
+```
+x, y = y, x
+```
+
+или
+
+```
+a, b, c, d = 1, 2, 3, 4
+a, b, c, d = b, c, d, a
+
+print(a, b, c, d)
+```
+
+Выведет 
+
+```
+2 3 4 1
+```
+
+
 
 ## Условные операторы
 
